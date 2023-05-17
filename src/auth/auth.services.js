@@ -22,7 +22,20 @@ const postLogin = (req, res) => {
         },
         jwtSecret
       );
-      res.status(200).json({ token });
+    
+        // objeto user
+      const user = {
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        country: data.country,
+        gender: data.gender,
+        status: data.status,
+        createAt: data.createAt,
+        updateAt: data.updateAt,
+      };
+      res.status(200).json({ token , user});
     })
     .catch((err) => res.status(400).json(err));
 };
