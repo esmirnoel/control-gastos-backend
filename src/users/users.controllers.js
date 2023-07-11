@@ -1,7 +1,7 @@
 const Users = require("../models/users.models");
 const uuid = require("uuid");
 const { hashPassword } = require("../utils/crypto");
-const budgetController = require("../budget/budget.controller");
+const Budget = require("../models/budget.models");
 
 const findAllUsers = async (limit, offset) => {
   const users = await Users.findAndCountAll({
@@ -40,11 +40,17 @@ const createUser = async (userObject) => {
     phone: userObject.phone,
   };
 
- const data = await Users.create(newUser);
-   // Crear el presupuesto correspondiente al usuario creado
-  const budgetData = await budgetController.createbudget({ total: 0 }, newUser.id);
+const newBudget = {
+    id: uuid.v4(),
+    total: 0,
+    userId: newUser.id,
+  };
 
-  return { user: data, budget: budgetData }; // Retornar tanto el usuario como el presupuesto
+  //
+  const data = await Users.create(newUser);
+  const dataBudget = await Budget.create(newBudget);
+
+  return { user: data, budget: dataBudget }; // Retornar tanto el usuario como el presupuesto
 };
 
 const updateUser = async (id, userObj) => {
