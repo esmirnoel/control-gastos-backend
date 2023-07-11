@@ -54,13 +54,15 @@ const postNewUser = (req, res) => {
   const userObj = req.body;
   userControllers
     .createUser(userObj)
-    .then((data) => {
-      res.status(201).json(data);
+    .then((result) => {
+      const { user, budget } = result;
+      res.status(201).json({ user, budget });
     })
     .catch((err) => {
       res.status(400).json({ message: "Bad request", err });
     });
 };
+
 
 const patchUser = (req, res) => {
   const id = req.params.id;
