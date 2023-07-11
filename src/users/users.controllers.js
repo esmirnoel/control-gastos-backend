@@ -42,7 +42,7 @@ const createUser = async (userObject) => {
 
  const data = await Users.create(newUser);
    // Crear el presupuesto correspondiente al usuario creado
-  const budgetData = await budgetController.createbudget({ total: 0 }, data.id);
+  const budgetData = await budgetController.createbudget({ total: 0 }, newUser.id);
 
   return { user: data, budget: budgetData }; // Retornar tanto el usuario como el presupuesto
 };
