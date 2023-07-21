@@ -121,6 +121,16 @@ const deleteExpense = (req, res) => {
     });
 };
 
+const deleteAllExpensesByBudget = async (budgetId) => {
+  try {
+    await expenseControllers.deleteAllExpensesByBudget(budgetId);
+    return true;
+  } catch (error) {
+    throw new Error("Error deleting expenses by budget.");
+  }
+};
+
+
 
 module.exports = {
   getAllExpense,
@@ -128,4 +138,5 @@ module.exports = {
   postNewExpense,
   updateExpense,
   deleteExpense,
+  deleteAllExpensesByBudget,
 };
