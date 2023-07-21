@@ -37,7 +37,12 @@ const getAllExpense = async (req, res) => {
       results: rows,
     });
   } catch (err) {
-    res.status(400).json({ message: "Bad request", err: err.message });
+    res.status(200).json({
+      count: 0,
+      next: null,
+      prev: null,
+      results: [],
+    });
   }
 };
 
