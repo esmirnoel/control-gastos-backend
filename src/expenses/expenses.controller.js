@@ -110,11 +110,26 @@ const deleteExpense = async (expenseId) => {
 };
 
 const deleteAllExpensesByBudget = async (budgetId) => {
-  await Expenses.destroy({
-    where: {
-      budgetId: budgetId,
-    },
-  });
+  try {
+    const expenses = await Expenses.findAll({
+      where: {
+        budgetId: budgetId,
+      },
+    });
+
+    if (expenses.length === 0) {
+      throw new Error("No expenses found for the given budgetId");
+    }
+
+    // Eliminar cada gasto encontrado
+    for (const expense of expenses) {
+      await expense.destroy();
+    }
+
+    return expenses;
+  } catch (error) {
+    throw new Error("Error deleting expenses by budget."); // Enviar un mensaje de error genérico
+  }
 };
 
 
