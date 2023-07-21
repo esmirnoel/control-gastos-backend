@@ -108,18 +108,19 @@ const deleteExpense = (req, res) => {
 
   expenseControllers
     .deleteExpense(expenseId)
-    .then((data) => {
-      res.status(200);
+    .then(() => {
+      res.status(200).json({ message: "Expense deleted successfully." });
     })
     .catch((err) => {
-      console.log(err); // Agregar console.log aquí para mostrar el error
+      console.log(err);
       if (err.message === "Expense not found") {
         res.status(400).json({ message: err.message });
       } else {
-        res.status(500).json({ message: err });
+        res.status(500).json({ message: "Error deleting expense." });
       }
     });
 };
+
 
 module.exports = {
   getAllExpense,
