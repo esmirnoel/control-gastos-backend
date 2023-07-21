@@ -121,15 +121,19 @@ const deleteExpense = (req, res) => {
     });
 };
 
-const deleteAllExpensesByBudget = async (budgetId) => {
-  try {
-    await expenseControllers.deleteAllExpensesByBudget(budgetId);
-    return true;
-  } catch (error) {
-    throw new Error("Error deleting expenses by budget.");
-  }
-};
+const deleteAllExpensesByBudget = (req, res) => {
+  const budgetId = req.params.budgetId;
 
+  expenseControllers
+    .deleteAllExpensesByBudget(budgetId)
+    .then(() => {
+      res.status(200).json({ message: "Expenses deleted successfully." });
+    })
+    .catch((err) => {
+      console.log(err); // Agregar console.log aquí para mostrar el error
+      res.status(500).json({ message: "Error deleting expenses by budget." });
+    });
+};
 
 
 module.exports = {
