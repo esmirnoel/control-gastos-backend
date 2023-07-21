@@ -638,6 +638,37 @@
           }
         }
       }
+    },
+    "/api/v1/expenses/deleteAll/{budgetId}": {
+      "delete": {
+        "tags": ["Gastos"],
+        "summary": "Elimina todos los gastos de un presupuesto en especifico",
+        "security": [
+          {
+            "BearerAuth": [],
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "El ID del presupuesto relacionado a los gastos",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Al hacer esta petición se eliminan todos los gastos de un usuario"
+          },
+          "400": {
+            "description": "Bad Request: La petición es inválida o faltan parámetros"
+          }
+        }
+      }
     }
   }
 }
