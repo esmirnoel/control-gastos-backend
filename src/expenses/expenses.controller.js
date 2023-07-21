@@ -109,10 +109,20 @@ const deleteExpense = async (expenseId) => {
   return expense;
 };
 
+const deleteAllExpensesByBudget = async (budgetId) => {
+  await Expenses.destroy({
+    where: {
+      budgetId: budgetId,
+    },
+  });
+};
+
+
 module.exports = {
   findAllExpenses,
   // findExpensesById,
   createExpense,
   updateExpense,
   deleteExpense,
+  deleteAllExpensesByBudget,
 };
